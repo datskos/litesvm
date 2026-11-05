@@ -30,6 +30,7 @@ solana-epoch-rewards.workspace = true
 solana-epoch-schedule.workspace = true
 solana-hash.workspace = true
 solana-instruction.workspace = true
+solana-instruction-error.workspace = true
 solana-last-restart-slot.workspace = true
 solana-message.workspace = true
 solana-rent.workspace = true

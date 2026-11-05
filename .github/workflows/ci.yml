@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Agave CLI
         run: |
-          sh -c "$(curl -sSfL https://release.anza.xyz/v4.3.2/install)"
+          sh -c "$(curl -sSfL https://release.anza.xyz/v4.4.1/install)"
           echo "$HOME/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
 
       - name: Build test programs

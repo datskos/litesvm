@@ -434,8 +434,8 @@ impl LiteSvm {
             .slot_hashes()
             .iter()
             .map(|x| SlotHash {
-                slot: BigInt::from(x.0),
-                hash: x.1.to_string(),
+                slot: BigInt::from(x.slot),
+                hash: x.hash.to_string(),
             })
             .collect()
     }

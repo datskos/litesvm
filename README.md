@@ -132,7 +132,7 @@ See the [anchor-litesvm testing guide](https://www.litesvm.com/docs/additional-c
 
 #### Run the tests
 
-Install [Agave CLI v4.3.2](https://github.com/anza-xyz/agave/releases/tag/v4.3.2), the version used in CI. The tests in this repo use some test programs you need to build first:
+Install [Agave CLI v4.4.1](https://github.com/anza-xyz/agave/releases/tag/v4.4.1), the version used in CI. The tests in this repo use some test programs you need to build first:
 
 ```cd crates/litesvm/test_programs && cargo build-sbf```
 

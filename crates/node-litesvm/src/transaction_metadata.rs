@@ -140,7 +140,7 @@ pub struct FailedTransactionMetadata(pub(crate) FailedTransactionMetadataOrigina
 #[napi]
 impl FailedTransactionMetadata {
     #[napi(
-        ts_return_type = "TransactionErrorFieldless | TransactionErrorInstructionError | TransactionErrorDuplicateInstruction | TransactionErrorInsufficientFundsForRent | TransactionErrorProgramExecutionTemporarilyRestricted"
+        ts_return_type = "TransactionErrorFieldless | TransactionErrorInstructionError | TransactionErrorDuplicateInstruction | TransactionErrorInsufficientFundsForRent | TransactionErrorProgramExecutionTemporarilyRestricted | string"
     )]
     pub fn err(&self) -> TransactionError {
         convert_transaction_error(self.0.err.clone())

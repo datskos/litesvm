@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade Agave dependencies and the CI CLI to 4.4.1, update the compatible Solana SDK dependencies, and raise the minimum supported Rust version to 1.98.1.
+
 ## [0.18.2] - 2026-11-04
 
 ### Changed

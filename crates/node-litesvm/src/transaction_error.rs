@@ -1,8 +1,8 @@
 use {
     crate::to_string_js,
     core::fmt,
-    napi::bindgen_prelude::{Either3, Either5},
-    solana_instruction::error::InstructionError as InstructionErrorOriginal,
+    napi::bindgen_prelude::{Either4, Either6},
+    solana_instruction_error::InstructionError as InstructionErrorOriginal,
     solana_transaction_error::TransactionError as TransactionErrorOriginal,
 };
 
@@ -78,12 +78,14 @@ pub enum InstructionErrorFieldless {
     MaxInstructionTraceLengthExceeded,
     BuiltinProgramsMustConsumeComputeUnits,
     BorshIoError,
+    BailOut,
 }
 
 to_string_js!(InstructionErrorFieldless);
 
+// Preserve future variants of the non-exhaustive SDK enums as strings.
 pub type InstructionError =
-    Either3<InstructionErrorFieldless, InstructionErrorCustom, InstructionErrorBorshIO>;
+    Either4<InstructionErrorFieldless, InstructionErrorCustom, InstructionErrorBorshIO, String>;
 
 // fn debug_instruction_error(err: InstructionError, f: &mut fmt::Formatter) -> fmt::Result {
 //     match err {
@@ -258,6 +260,10 @@ fn convert_instruction_error(e: InstructionErrorOriginal) -> InstructionError {
         InstructionErrorOriginal::BuiltinProgramsMustConsumeComputeUnits => {
             InstructionError::A(InstructionErrorFieldless::BuiltinProgramsMustConsumeComputeUnits)
         }
+        InstructionErrorOriginal::BailOut => {
+            InstructionError::A(InstructionErrorFieldless::BailOut)
+        }
+        other => InstructionError::D(format!("{other:?}")),
     }
 }
 
@@ -320,6 +326,7 @@ impl fmt::Debug for TransactionErrorInstructionError {
                     InstructionError::A(a) => a,
                     InstructionError::B(b) => b,
                     InstructionError::C(c) => c,
+                    InstructionError::D(d) => d,
                 },
             )
             .finish()
@@ -329,7 +336,7 @@ impl fmt::Debug for TransactionErrorInstructionError {
 #[napi]
 impl TransactionErrorInstructionError {
     #[napi(
-        ts_return_type = "InstructionErrorFieldless | InstructionErrorCustom | InstructionErrorBorshIO"
+        ts_return_type = "InstructionErrorFieldless | InstructionErrorCustom | InstructionErrorBorshIO | string"
     )]
     pub fn err(&self) -> InstructionError {
         self.error.clone()
@@ -362,12 +369,13 @@ pub struct TransactionErrorProgramExecutionTemporarilyRestricted {
 
 to_string_js!(TransactionErrorProgramExecutionTemporarilyRestricted);
 
-pub type TransactionError = Either5<
+pub type TransactionError = Either6<
     TransactionErrorFieldless,
     TransactionErrorInstructionError,
     TransactionErrorDuplicateInstruction,
     TransactionErrorInsufficientFundsForRent,
     TransactionErrorProgramExecutionTemporarilyRestricted,
+    String,
 >;
 
 pub(crate) fn convert_transaction_error(w: TransactionErrorOriginal) -> TransactionError {
@@ -494,5 +502,6 @@ pub(crate) fn convert_transaction_error(w: TransactionErrorOriginal) -> Transact
         TransactionErrorOriginal::CommitCancelled => {
             TransactionError::A(TransactionErrorFieldless::CommitCancelled)
         }
+        other => TransactionError::F(format!("{other:?}")),
     }
 }

@@ -237,7 +237,7 @@ export declare class EpochSchedule {
 }
 
 export declare class FailedTransactionMetadata {
-  err(): TransactionErrorFieldless | TransactionErrorInstructionError | TransactionErrorDuplicateInstruction | TransactionErrorInsufficientFundsForRent | TransactionErrorProgramExecutionTemporarilyRestricted
+  err(): TransactionErrorFieldless | TransactionErrorInstructionError | TransactionErrorDuplicateInstruction | TransactionErrorInsufficientFundsForRent | TransactionErrorProgramExecutionTemporarilyRestricted | string
   meta(): TransactionMetadata
   toString(): string
 }
@@ -509,7 +509,7 @@ export declare class TransactionErrorDuplicateInstruction {
 
 export declare class TransactionErrorInstructionError {
   index: number
-  err(): InstructionErrorFieldless | InstructionErrorCustom | InstructionErrorBorshIO
+  err(): InstructionErrorFieldless | InstructionErrorCustom | InstructionErrorBorshIO | string
   toString(): string
 }
 
@@ -592,7 +592,8 @@ export declare const enum InstructionErrorFieldless {
   MaxAccountsExceeded = 49,
   MaxInstructionTraceLengthExceeded = 50,
   BuiltinProgramsMustConsumeComputeUnits = 51,
-  BorshIoError = 52
+  BorshIoError = 52,
+  BailOut = 53
 }
 
 export interface SlotHashInput {
